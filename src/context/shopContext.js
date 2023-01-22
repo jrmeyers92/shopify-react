@@ -32,7 +32,7 @@ class ShopProvider extends Component {
     this.setState({ checkout });
   };
 
-  fetchCheckout = async (checkoutID) => {
+  fetchCheckout = (checkoutID) => {
     client.checkout.fetch(checkoutID).then((checkout) => {
       this.setState({ checkout });
     });
@@ -60,9 +60,20 @@ class ShopProvider extends Component {
   removeLineItem = async (lineItemIdsToRemove) => {};
 
   render() {
-    console.log(this.state.checkout);
     return (
-      <ShopContext.Provider value="test">
+      <ShopContext.Provider
+        value={{
+          ...this.state,
+          fetchAllProducts: this.fetchAllProducts,
+          fetchProdcutWithHandle: this.fetchProductWithHandle,
+          addItemToCheckout: this.addItemToCheckout,
+          removeLineItem: this.removeLineItem,
+          closeCart: this.closeCart,
+          openCart: this.openCart,
+          closeMenu: this.closeMenu,
+          openMenu: this.openMenu,
+        }}
+      >
         {this.props.children}
       </ShopContext.Provider>
     );
